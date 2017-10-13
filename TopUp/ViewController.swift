@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var attemptLabel: UILabel!
     
-    var attempt = 5
+    var flips = 5
     var playerScore = 0
 
     override func viewDidLoad() {
@@ -62,18 +62,18 @@ class ViewController: UIViewController {
     
     @IBAction func flipCard(_ sender: UIButton)
     {
-        let rand = Int(arc4random_uniform(10))
+        let rand = Int(arc4random_uniform(11))
         cardTwoLabel.backgroundColor = UIColor.white
         cardTwoLabel.text = String(rand)
-        attempt -= 1
-        attemptLabel.text = "\(attempt) attempts left"
-        if (Int(cardTwoLabel.text!)! + Int(cardOneLabel.text!)!) >= 10 && attempt > 0{
-            playerScore += 5
+        flips -= 1
+        attemptLabel.text = "\(flips) flips left"
+        if (Int(cardTwoLabel.text!)! + Int(cardOneLabel.text!)!) >= 10 && flips > 0{
+            playerScore += 10
             winLabel.text = "Score:\(playerScore)"
             sound()
             starImage.isHidden = false
-        }else if attempt < 1 {
-            attemptLabel.text = "\(attempt) attempts left"
+        }else if flips == 0 {
+            attemptLabel.text = "\(flips) flips left"
             endGame()
         }else{ starImage.isHidden = true }
     }
@@ -86,8 +86,8 @@ class ViewController: UIViewController {
         playerScore = 0
       winLabel.text = "Score:\(playerScore)"
       starImage.isHidden = true
-        attempt = 5
-      attemptLabel.text = "\(attempt) attempts"
+        flips = 5
+      attemptLabel.text = "\(flips) flips"
       
     }
     
